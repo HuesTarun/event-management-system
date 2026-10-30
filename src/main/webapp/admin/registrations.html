@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Attendee Roster | EventFlow Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="dashboard.html" class="nav-brand">EventFlow Admin</a>
+      <ul class="nav-links">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="events.html" class="active">Manage Events</a></li>
+        <li><a href="../events.html">Public Site</a></li>
+      </ul>
+      <div id="nav-auth"></div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding-top: 30px;">
+    <p style="margin-bottom: 15px;"><a href="events.html" class="btn btn-secondary btn-sm">&larr; Back to Events</a></p>
+
+    <div class="card">
+      <h2 id="event-title">Event Attendees</h2>
+      <p id="event-counts" style="color: #818cf8; margin-top: 5px; font-weight: bold;">Loading attendees...</p>
+    </div>
+
+    <div class="card" style="padding: 0; overflow: hidden; margin-top: 20px;">
+      <h3 style="padding: 15px 20px; border-bottom: 1px solid #334155;">Registered Students Roster</h3>
+      <table class="table" style="margin: 0;">
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Email</th>
+            <th>Ticket Token</th>
+            <th>Registered Date</th>
+          </tr>
+        </thead>
+        <tbody id="registrations-table-body">
+          <tr><td colspan="4" style="text-align: center; color: #94a3b8; padding: 25px;">Loading students...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 Event Management System Admin</p>
+  </footer>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>

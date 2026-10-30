@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>My Registrations | EventFlow</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-brand">EventFlow</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="my-events.html" class="active">My Registrations</a></li>
+      </ul>
+      <div id="nav-auth"></div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding-top: 30px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h2>My Event Registrations</h2>
+      <div>
+        <button onclick="window.print()" class="btn btn-secondary btn-sm" style="margin-right: 8px;">Print Passes</button>
+        <a href="events.html" class="btn btn-primary btn-sm">+ Register More</a>
+      </div>
+    </div>
+
+    <div class="card" style="padding: 0; overflow: hidden;">
+      <table class="table" style="margin: 0;">
+        <thead>
+          <tr>
+            <th>Event Title</th>
+            <th>Date &amp; Time</th>
+            <th>Venue</th>
+            <th>Status</th>
+            <th>Digital Pass</th>
+          </tr>
+        </thead>
+        <tbody id="my-events-table">
+          <tr>
+            <td colspan="5" style="text-align: center; color: #94a3b8; padding: 25px;">Loading registrations...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 Event Management System</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>

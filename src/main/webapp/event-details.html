@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Event Details | EventFlow</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-brand">EventFlow</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html" class="active">Events</a></li>
+        <li id="nav-my-events" style="display:none;"><a href="my-events.html">My Registrations</a></li>
+        <li id="nav-admin" style="display:none;"><a href="admin/dashboard.html">Admin</a></li>
+      </ul>
+      <div id="nav-auth"></div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding-top: 30px; max-width: 750px;">
+    <p style="margin-bottom: 15px;"><a href="events.html" class="btn btn-secondary btn-sm">&larr; Back to Events</a></p>
+    <div id="event-details-box" class="card">
+      <p style="color: #94a3b8;">Loading event details...</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 Event Management System</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Events | EventFlow</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-brand">EventFlow</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html" class="active">Events</a></li>
+        <li id="nav-my-events" style="display:none;"><a href="my-events.html">My Registrations</a></li>
+        <li id="nav-admin" style="display:none;"><a href="admin/dashboard.html">Admin</a></li>
+      </ul>
+      <div id="nav-auth"></div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding-top: 30px;">
+    <div style="margin-bottom: 20px;">
+      <h2>All Campus Events</h2>
+    </div>
+
+    <div id="events-list" class="event-grid"></div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 Event Management System</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

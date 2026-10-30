@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard | EventFlow</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="dashboard.html" class="nav-brand">EventFlow Admin</a>
+      <ul class="nav-links">
+        <li><a href="dashboard.html" class="active">Dashboard</a></li>
+        <li><a href="events.html">Manage Events</a></li>
+        <li><a href="../events.html">Public Site</a></li>
+      </ul>
+      <div id="nav-auth"></div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding-top: 30px;">
+    <h2>Admin Dashboard</h2>
+
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div id="admin-stat-events" class="stat-number">0</div>
+        <div class="stat-label">Total Events</div>
+      </div>
+      <div class="stat-box">
+        <div id="admin-stat-reg" class="stat-number">0</div>
+        <div class="stat-label">Total Registrations</div>
+      </div>
+      <div class="stat-box">
+        <div id="admin-stat-students" class="stat-number">0</div>
+        <div class="stat-label">Registered Students</div>
+      </div>
+    </div>
+
+    <div class="card" style="padding: 0; overflow: hidden; margin-top: 20px;">
+      <h3 style="padding: 15px 20px; border-bottom: 1px solid #334155;">Recent Events</h3>
+      <table class="table" style="margin: 0;">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Date &amp; Time</th>
+            <th>Registrations</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="dashboard-events">
+          <tr><td colspan="5" style="text-align: center; color: #94a3b8; padding: 25px;">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 Event Management System Admin</p>
+  </footer>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>
