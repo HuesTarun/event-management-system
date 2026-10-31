@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Official Event Ticket Pass | EventFlow</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    @media print {
+      body { background-color: #ffffff; color: #000000; }
+      .navbar, .footer, .no-print { display: none !important; }
+      .ticket-box {
+        border: 2px solid #000000;
+        box-shadow: none;
+        background: #ffffff !important;
+        color: #000000 !important;
+        margin: 0 auto;
+      }
+      .ticket-box h2, .ticket-box h3, .ticket-box strong, .ticket-box code { color: #000000 !important; }
+      .ticket-box p, .ticket-box span { color: #333333 !important; }
+      .badge { border: 1px solid #000; background: #eee !important; color: #000 !important; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar no-print">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-brand">EventFlow</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="my-events.html">My Registrations</a></li>
+      </ul>
+      <div id="nav-auth"></div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding-top: 30px;">
+    <div class="no-print" style="margin-bottom: 20px;">
+      <a href="my-events.html" class="btn btn-secondary btn-sm">&larr; Back to Registrations</a>
+    </div>
+
+    <div id="ticket-container" class="ticket-box">
+      <div id="ticket-loading" style="padding: 30px; color: #94a3b8;">
+        Loading ticket details...
+      </div>
+      <div id="ticket-content" style="display: none;">
+        <span class="badge badge-info" style="margin-bottom: 12px;">OFFICIAL CAMPUS ADMISSION PASS</span>
+        <h2 id="t-event-title" style="color: #ffffff; margin-bottom: 8px;">Event Title</h2>
+        <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 20px;">
+          Student Admission Pass &bull; Scan at Check-In
+        </p>
+
+        <div style="background: #ffffff; padding: 16px; border-radius: 12px; display: inline-block; margin: 10px 0; box-shadow: 0 4px 16px rgba(0,0,0,0.3);">
+          <img id="t-qr-img" src="" alt="Ticket QR Code" width="220" height="220" style="display: block;">
+        </div>
+
+        <div style="margin: 15px 0;">
+          <span style="font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px;">
+            Unique Ticket Token
+          </span>
+          <code id="t-token" style="color: #818cf8; font-size: 1.15rem; font-weight: bold; background: #0f172a; padding: 4px 12px; border-radius: 6px; border: 1px solid #334155;"></code>
+        </div>
+
+        <div style="background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 15px; margin: 20px 0; text-align: left;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 0.9rem;">
+            <div>
+              <span style="color: #94a3b8; display: block; font-size: 0.8rem;">Attendee:</span>
+              <strong id="t-attendee" style="color: #ffffff;"></strong>
+            </div>
+            <div>
+              <span style="color: #94a3b8; display: block; font-size: 0.8rem;">Email:</span>
+              <span id="t-email" style="color: #cbd5e1;"></span>
+            </div>
+            <div>
+              <span style="color: #94a3b8; display: block; font-size: 0.8rem;">Date &amp; Time:</span>
+              <strong id="t-date" style="color: #ffffff;"></strong>
+            </div>
+            <div>
+              <span style="color: #94a3b8; display: block; font-size: 0.8rem;">Venue:</span>
+              <strong id="t-venue" style="color: #ffffff;"></strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="no-print" style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+          <a id="t-download-btn" href="" download="event-ticket-qr.png" class="btn btn-success">⬇ Download QR Code</a>
+          <button onclick="window.print()" class="btn btn-primary">🖨 Print Ticket</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer no-print">
+    <p>&copy; 2026 Event Management System</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script>
+    async function loadTicketPage() {
+      const token = param('token');
+      if (!token) {
+        $('ticket-loading').innerHTML = '<p style="color:#ef4444;">No ticket token provided.</p>';
+        return;
+      }
+
+      const res = await apiGet('/api/ticket/details?token=' + encodeURIComponent(token));
+      if (res.error || !res.ticketToken) {
+        $('ticket-loading').innerHTML = `<p style="color:#ef4444;">${res.error || 'Ticket not found.'}</p>`;
+        return;
+      }
+
+      $('ticket-loading').style.display = 'none';
+      $('ticket-content').style.display = 'block';
+
+      $('t-event-title').innerText = res.eventTitle;
+      $('t-token').innerText = res.ticketToken;
+      $('t-attendee').innerText = res.userName || 'Student';
+      $('t-email').innerText = res.userEmail || '';
+      $('t-date').innerText = formatDate(res.eventDate);
+      $('t-venue').innerText = res.eventVenue || 'TBA';
+
+      const qrUrl = BASE + '/api/ticket/qr?token=' + encodeURIComponent(res.ticketToken) + '&size=260';
+      $('t-qr-img').src = qrUrl;
+      $('t-download-btn').href = qrUrl;
+      $('t-download-btn').download = `ticket-${res.ticketToken}.png`;
+    }
+
+    window.addEventListener('DOMContentLoaded', loadTicketPage);
+  </script>
+</body>
+
+</html>
+

@@ -144,6 +144,43 @@ public class RegistrationDAO {
     }
 
     /**
+     * Finds a registration by its unique ticket token.
+     */
+    public Registration findByTicketToken(String token) throws SQLException {
+        String sql = "SELECT r.id, r.user_id, r.event_id, r.ticket_token, r.registered_at, " +
+                     "u.name AS user_name, u.email AS user_email, " +
+                     "e.title AS event_title, e.event_date, e.venue AS event_venue " +
+                     "FROM registrations r " +
+                     "JOIN users u ON r.user_id = u.id " +
+                     "JOIN events e ON r.event_id = e.id " +
+                     "WHERE r.ticket_token = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, token);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Registration reg = new Registration();
+                    reg.setId(rs.getInt("id"));
+                    reg.setUserId(rs.getInt("user_id"));
+                    reg.setEventId(rs.getInt("event_id"));
+                    reg.setTicketToken(rs.getString("ticket_token"));
+                    reg.setRegisteredAt(rs.getTimestamp("registered_at"));
+                    reg.setUserName(rs.getString("user_name"));
+                    reg.setUserEmail(rs.getString("user_email"));
+                    reg.setEventTitle(rs.getString("event_title"));
+                    reg.setEventDate(rs.getTimestamp("event_date"));
+                    reg.setEventVenue(rs.getString("event_venue"));
+                    return reg;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * Retrieves all registrations for an event (used by Admin to view attendee roster).
      */
     public List<Registration> getRegistrationsByEvent(int eventId) throws SQLException {

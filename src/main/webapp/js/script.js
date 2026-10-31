@@ -173,9 +173,40 @@ async function loadMyEvents() {
       <td>${formatDate(r.eventDate)}</td>
       <td>${r.eventVenue}</td>
       <td><span class="badge badge-success">Registered</span></td>
-      <td><code style="color:#818cf8; font-weight:bold;">${r.ticketToken}</code></td>
+      <td>
+        <button onclick="showPassModal('${r.ticketToken}', '${encodeURIComponent(r.eventTitle)}', '${encodeURIComponent(formatDate(r.eventDate))}', '${encodeURIComponent(r.eventVenue || 'TBA')}')" class="btn btn-primary btn-sm" style="margin-right:6px;">🎟️ View QR Pass</button>
+        <a href="ticket.html?token=${encodeURIComponent(r.ticketToken)}" target="_blank" class="btn btn-secondary btn-sm" title="Open full pass page">🖨️</a>
+      </td>
     </tr>`).join('') : '<tr><td colspan="5" style="text-align:center; color:#94a3b8; padding:25px;">No registered events.</td></tr>';
 }
+
+function showPassModal(token, title, date, venue) {
+  const modal = $('qr-modal');
+  if (!modal) return;
+  $('modal-event-title').innerText = decodeURIComponent(title);
+  $('modal-event-meta').innerText = `${decodeURIComponent(date)} • ${decodeURIComponent(venue)}`;
+  $('modal-qr-token').innerText = token;
+
+  const qrUrl = `${BASE}/api/ticket/qr?token=${encodeURIComponent(token)}&size=240`;
+  $('modal-qr-img').src = qrUrl;
+  $('modal-download-btn').href = qrUrl;
+  $('modal-download-btn').download = `ticket-${token}.png`;
+  $('modal-view-full-btn').href = `${BASE}/ticket.html?token=${encodeURIComponent(token)}`;
+
+  modal.style.display = 'flex';
+}
+
+function closePassModal() {
+  const modal = $('qr-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+window.addEventListener('click', function(e) {
+  const modal = $('qr-modal');
+  if (modal && e.target === modal) {
+    modal.style.display = 'none';
+  }
+});
 
 // 7. Admin Dashboard & Event Management
 async function loadAdminDashboard() {
@@ -272,7 +303,10 @@ async function loadRegistrations() {
       <td>${r.userEmail}</td>
       <td><code>${r.ticketToken}</code></td>
       <td>${formatDate(r.registeredAt)}</td>
-    </tr>`).join('') : '<tr><td colspan="4" style="text-align:center; color:#94a3b8; padding:20px;">No registrations for this event yet.</td></tr>';
+      <td>
+        <a href="../ticket.html?token=${encodeURIComponent(r.ticketToken)}" target="_blank" class="btn btn-secondary btn-sm" title="View Ticket & QR Pass">🎟️ View Pass</a>
+      </td>
+    </tr>`).join('') : '<tr><td colspan="5" style="text-align:center; color:#94a3b8; padding:20px;">No registrations for this event yet.</td></tr>';
 }
 
 // 8. Auto-initialize current page

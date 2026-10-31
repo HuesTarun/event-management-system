@@ -1,2 +1,24 @@
 # Project exclude paths
 /target/
+*.class
+
+# IDE and Editor files
+.idea/
+*.iml
+.vscode/
+
+# Local database configuration
+src/main/resources/db.properties
+
+# Temporary, report, document, and python helper files
+*.docx
+*.doc
+*.pdf
+*.tmp
+~*
+__pycache__/
+*.py
+scratch/
+screenshots/
+lbrce_logo*
+VIVA_GUIDE.md

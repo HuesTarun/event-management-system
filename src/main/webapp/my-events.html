@@ -50,6 +50,31 @@
     </div>
   </main>
 
+  <!-- QR Pass Modal -->
+  <div id="qr-modal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.75); backdrop-filter:blur(4px); align-items:center; justify-content:center;">
+    <div class="card ticket-box" style="position:relative; width:90%; max-width:440px; margin:auto; background:#1e293b;">
+      <button onclick="closePassModal()" style="position:absolute; top:12px; right:15px; background:none; border:none; color:#94a3b8; font-size:1.5rem; cursor:pointer;" aria-label="Close">&times;</button>
+      <span class="badge badge-info" style="margin-bottom:10px;">OFFICIAL CAMPUS PASS</span>
+      <h3 id="modal-event-title" style="color:#ffffff; margin-bottom:6px;">Event Pass</h3>
+      <p id="modal-event-meta" style="color:#94a3b8; font-size:0.85rem; margin-bottom:15px;">Date &amp; Venue</p>
+      
+      <div style="background:#ffffff; padding:12px; border-radius:12px; display:inline-block; margin-bottom:12px; box-shadow:0 4px 15px rgba(0,0,0,0.3);">
+        <img id="modal-qr-img" src="" alt="Ticket QR Code" width="200" height="200" style="display:block;">
+      </div>
+      
+      <div style="margin-bottom:15px;">
+        <span style="font-size:0.75rem; color:#94a3b8; text-transform:uppercase; letter-spacing:1px; display:block;">Ticket Token</span>
+        <code id="modal-qr-token" style="color:#818cf8; font-size:1.05rem; font-weight:bold;"></code>
+      </div>
+      
+      <div style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap;">
+        <a id="modal-download-btn" href="" download="ticket-qr.png" class="btn btn-success btn-sm">⬇ Download QR</a>
+        <a id="modal-view-full-btn" href="" class="btn btn-primary btn-sm">🎟️ Full Pass</a>
+        <button onclick="closePassModal()" class="btn btn-secondary btn-sm">Close</button>
+      </div>
+    </div>
+  </div>
+
   <footer class="footer">
     <p>&copy; 2026 Event Management System</p>
   </footer>
